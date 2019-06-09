@@ -1,31 +1,44 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
     <router-view/>
   </div>
 </template>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+html,body,#app{
+  height: 100%;
+  width: 100%
 }
-#nav {
-  padding: 30px;
+html, body, div, span, applet, object, iframe, 
+h1, h2, h3, h4, h5, h6, p, 
+blockquote, pre, a, abbr, acronym, address, big, 
+cite, code, del, dfn, em, font, img, 
+ins, kbd, q, s, samp, small, strike, 
+strong, sub, sup, tt, var, dl, dt, dd, ol, ul, li, 
+fieldset, form, label, legend, 
+table, caption, tbody, tfoot, thead, tr, th, td, 
+center, u, b, i { 
+    margin: 0; 
+    padding: 0; 
+    border: 0; 
+    outline: 0; 
+    font-weight: normal; 
+    font-style: normal; 
+    font-size: 100%; 
+    font-family: inherit; 
+    vertical-align: baseline 
 }
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
+.main .el-card__header{
+  padding: 8px 20px;
 }
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+.main .el-card__body{
+  padding: 6px
+}
+.main .el-input-group__append{
+  background-color: #409EFF;
+  color: #fff
+} 
+#app .el-main{
+  padding: 10px;
 }
 </style>
