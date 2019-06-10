@@ -48,7 +48,7 @@ export default {
         margin: 8px 0;
     }
     .chart{
-        height: 33vh;
+        height: 35vh;
     }
     .material{
         height: 40vh;

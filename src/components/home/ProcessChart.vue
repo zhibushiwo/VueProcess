@@ -145,6 +145,6 @@ export default {
 </script>
 <style scoped>
 #chart{
-    height: 27vh;
+    height: 33vh;
 }
 </style>
