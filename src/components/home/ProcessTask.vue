@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-input placeholder="请输入内容" @keydown.enter.native="scanBarcode" v-model="barcode">
+    <el-input placeholder="请输入内容" @keydown.enter.native="submitBarcode" v-model="barcode">
       <template slot="prepend">条码</template>
       <el-button slot="append" type="primary" class="btn_SelectTask" @click="showTask">选择计划</el-button>
     </el-input>
@@ -11,6 +11,7 @@
 <script>
 import TaskTable from '@/components/home/TaskTable'
 import TaskList from '@/components/home/TaskList'
+import { mapActions,mapGetters } from 'vuex'
 
 export default {
   name: "ProcessTask",
@@ -24,6 +25,11 @@ export default {
   components:{
     TaskTable,TaskList
   },
+  computed:{
+    ...mapGetters([
+      "taskId"
+    ])
+  },
   methods:{
     showTask(){
        this.dialogVisible = true
@@ -31,13 +37,24 @@ export default {
     selectTask(data){
       this.tasks=data;
     },
-    scanBarcode(){
-      if(this.barcode.indexOf("bar")<0){
-        this.$message("条码需要以bar开头");
+    submitBarcode(){
+      if(this.taskId==0){
+        this.$message("请选择好计划")
         this.barcode="";
         return false
       }
-    }
+      if(this.barcode.indexOf('bar')!=0){
+        this.$message("条码需要已bar开头")
+        this.barcode="";
+        return false
+      }
+      this.scanBarcode(this.barcode);
+      this.barcode="";
+      
+    },
+    ...mapActions([
+      'scanBarcode'
+    ])
   }
 };
 </script>

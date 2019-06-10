@@ -70,7 +70,8 @@ export default {
     },
     methods:{
         submit(){
-            console.log(this.barcode)
+            this.$message("投料成功");
+            this.barcode=""
         }
     }
 }

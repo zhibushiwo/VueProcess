@@ -1,7 +1,7 @@
 <template>
   <div class="taskWrap">
-    <div class="task"  v-for="item in tasks" :key="item.id" @click="selectTask(item.id)">
-      <div :class="[{active:item.id==currentid},'title']" >
+    <div class="task"  v-for="item in tasks" :key="item.id" @click="setTaskID(item.id)">
+      <div :class="[{active:item.id==taskId},'title']" >
         计划单：
         <span class>{{item.billno}}</span>
       </div>
@@ -30,8 +30,8 @@
           <li class>
             <el-progress :percentage="50"></el-progress>
           </li>
-          <li v-if="item.id==currentid">
-            <el-button class="btn_print" size="small" type="danger">打印</el-button>
+          <li v-if="item.id==taskId">
+            <el-button class="btn_print" size="small" type="danger" @click="printBarcode">打印</el-button>
           </li>
         </ul>
       </div>
@@ -39,18 +39,30 @@
   </div>
 </template>
 <script>
+import { setTimeout } from 'timers';
+import {mapActions,mapGetters}  from 'vuex'
 export default {
   name: "TaskList",
   data(){
       return{
-        currentid:0
       }
   },
   props:["tasks"],
+  computed:{
+    ...mapGetters([
+      "taskId"
+    ])
+  },
   methods:{
-      selectTask(id){
-          this.currentid=id
-      }
+      printBarcode(){
+        let _this = this;
+        setTimeout(function(){
+          _this.$message("条码已打印！")
+        },1000)
+      },
+      ...mapActions(
+        ["setTaskID"]
+      )
   }
 };
 </script>
