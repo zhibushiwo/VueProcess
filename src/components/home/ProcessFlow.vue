@@ -1,11 +1,11 @@
 <template>
   <div>
     <div id="flowwrap">
-      <ul id="flow" style="width:1600px">
+      <ul id="flow" :style="{width:width+'px'}">
         <template v-for="(item,index) in list">
-          <li>
+          <li :class="liClass(item.id)">
             <div>
-              <span>{{item.number}}</span>
+              <span>{{item.id}}</span>
             </div>
             <div>{{item.name}}</div>
           </li>
@@ -30,58 +30,74 @@ export default {
     return {
       list: [
         {
-          name: "10",
-          number: "10"
+          name: "第一道工序",
+          id: 10
         },
         {
-          name: "20",
-          number: "20"
+          name: "第二道工序",
+          id: 20
         },
         {
-          name: "30",
-          number: "30"
+          name: "第三道工序",
+          id: 30
         },
         {
-          name: "40",
-          number: "40"
+          name: "第四道工序",
+          id: 40
         },
         {
-          name: "50",
-          number: "50"
+          name: "第五道工序",
+          id: 50
         },
         {
-          name: "60",
-          number: "60"
+          name: "第六道工序",
+          id: 60
         },
         {
-          name: "70",
-          number: "70"
+          name: "第七道工序",
+          id: 70
         },
         {
-          name: "80",
-          number: "80"
+          name: "第八道工序",
+          id: 80
         },
         {
-          name: "90",
-          number: "90"
+          name: "第九道工序",
+          id: 90
         },
         {
-          name: "100",
-          number: "100"
+          name: "第十道工序",
+          id: 100
         }
       ]
     };
   },
-  mounted(){
-      let outDiv = document.getElementById('flowwrap');
-      outDiv.onwheel = function (event) {
-          event.preventDefault();
-          let step = 50; if (event.deltaY < 0) {
-              this.scrollLeft -= step;
-          } else {
-              this.scrollLeft += step;
-          }
+  computed: {
+    width() {
+      return this.list.length * 160;
+    }
+  },
+  methods: {
+    liClass(id) {
+      console.log(id,this.$store.state.processId)
+      if (this.$store.state.processId == id) {
+        return "current";
+      } else if (this.$store.state.processId < id) {
+        return "next";
       }
+    }
+  },
+  mounted() {
+    let outDiv = document.getElementById("flowwrap");
+    outDiv.onwheel = function(event) {
+      event.preventDefault();
+      let step = 50;
+      if (event.deltaY < 0) {
+        this.scrollLeft -= step;
+      } else {
+        this.scrollLeft += step;
+      }
+    };
   }
 };
 </script>

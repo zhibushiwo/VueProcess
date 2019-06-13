@@ -28,7 +28,7 @@
             <strong>{{item.finish}}</strong>
           </li>
           <li class>
-            <el-progress :percentage="50"></el-progress>
+            <el-progress :percentage="parseInt(item.finish/item.qty*100)"></el-progress>
           </li>
           <li v-if="item.id==taskId">
             <el-button class="btn_print" size="small" type="danger" @click="printBarcode">打印</el-button>
