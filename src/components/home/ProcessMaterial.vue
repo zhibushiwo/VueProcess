@@ -3,7 +3,9 @@
         <div class="title">
             <span class="info">本机台绑定信息</span>
             <div style="float:right">
-                <el-input v-if="showInput" class="material_input" size="small" v-model="barcode" @keyup.enter.native="submit"></el-input>
+                <transition name="show">
+                    <el-input v-if="showInput" class="material_input" size="small" v-model="barcode" @keyup.enter.native="submit"></el-input>
+                </transition>
                 <el-button @click="showInput=!showInput;barcode=''" type="primary" size="medium">投料</el-button>
             </div>
             <div class="clear"></div>
@@ -86,5 +88,12 @@ export default {
     }
     .info{
         line-height: 2
+    }
+    .show-enter-active, .show-leave-active {
+        width: 0;
+        transition: width .5s;
+    }
+    .show-enter, .show-leave-to {
+        width: 200px;
     }
 </style>
