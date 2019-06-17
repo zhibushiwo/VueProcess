@@ -4,7 +4,7 @@
     <el-button type="primary" @click="primary">主要按钮</el-button>
     <el-button type="success">成功按钮</el-button>
     <el-button type="info">信息按钮</el-button>
-    <el-button type="warning">退出系统</el-button>
+    <el-button type="warning" @click="logout">退出系统</el-button>
     <el-button type="danger" @click="repair">设备报修</el-button>
   </div>
 </template>
@@ -19,7 +19,7 @@ export default {
   },
   methods: {
     ...mapActions([
-      "setFacilityState"
+      "setFacilityState","setUserName"
     ]),
     backPrint() {
       this.$prompt("请输入条码", "补打印", {
@@ -52,7 +52,9 @@ export default {
          
         });
     },
-   
+    logout(){
+      this.setUserName("")
+    },
     primary() {
       this.$message("还没想好啥功能");
     }

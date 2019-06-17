@@ -16,7 +16,16 @@
         </el-menu>
       </el-col>
       <el-col :span="12" style="text-align:right">
-        <span>{{userName}}</span>
+        <el-dropdown  trigger="click">
+          <span class="el-dropdown-link">
+            {{userName}}<i class="el-icon-arrow-down el-icon--right"></i>
+          </span>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item @click.native="logout">
+              退出
+            </el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
       </el-col>
     </el-row>
     <el-dialog title="请选择工序" :visible.sync="dialogVisible" width="30%" :before-close="handleClose">
@@ -25,8 +34,8 @@
       </el-select>
     </el-dialog>
 
-    <el-dialog title="请扫入人员" :visible="showUser" width="30%" >
-      <el-input style="width:100%"  @keyup.enter.native="setUser" v-model="user"></el-input>
+    <el-dialog title="请扫入人员" :visible="showUser" width="30%">
+      <el-input style="width:100%" v-focus @keyup.enter.native="setUser" v-model="user"></el-input>
     </el-dialog>
 
   </div>
@@ -84,6 +93,18 @@ export default {
       user:""
     };
   },
+  directives:{
+    focus:{
+      inserted : (el)=>{
+        let input = el.querySelector("input") 
+        input.focus()
+      },
+      update: (el)=>{
+        let input = el.querySelector("input") 
+        input.focus()
+      }
+    }
+  },
   computed: {
       processName(){
           let pro = this.list.filter(item=>{
@@ -106,9 +127,11 @@ export default {
     },
     setUser(){
       if(this.user){
-        console.log(this.user)
         this.setUserName(this.user)
       }
+    },
+    logout(){
+      this.setUserName("")
     },
     ...mapActions(["setProcessID","setUserName"])
   },
@@ -119,7 +142,6 @@ export default {
         }else{
             this.dialogVisible = true;
         }
-
     }
     if(localStorage.getItem("userName")){
           this.setUserName(localStorage.getItem("userName"))
@@ -128,6 +150,9 @@ export default {
   watch: {
     selectId(val) {
       this.setProcessID(val);
+    },
+    userName(val){
+      this.user = val==""?"":this.user;
     }
   }
 };
@@ -135,6 +160,9 @@ export default {
 <style scoped>
 .logoimg {
   height: 60px;
+}
+.el-dropdown-link{
+  color:#fff
 }
 </style>
 
