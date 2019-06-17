@@ -102,6 +102,10 @@ export default {
         this.selectData = selection;
     },
     handelConfirm(){
+        if(this.selectData.length==0){
+          this.$message("请至少选择一个计划");
+          return false;
+        }
         this.show = false;
         this.$emit("handelConfirm", this.selectData);
     }

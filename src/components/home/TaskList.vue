@@ -91,7 +91,8 @@ export default {
   .task{
       margin: 10px;
       width: 220px;
-      min-width: 220px;;
+      min-width: 220px;
+      background-color: snow;
   }
   .active{
        background: #049588;

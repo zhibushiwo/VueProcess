@@ -12,6 +12,7 @@
 import TaskTable from '@/components/home/TaskTable'
 import TaskList from '@/components/home/TaskList'
 import { mapActions,mapGetters } from 'vuex'
+import { isNumber } from 'util';
 
 export default {
   name: "ProcessTask",
@@ -19,7 +20,7 @@ export default {
     return {
       dialogVisible:false,
       tasks:[],
-      barcode:""
+      barcode:"",
     }
   },
   components:{
@@ -27,7 +28,7 @@ export default {
   },
   computed:{
     ...mapGetters([
-      "taskId"
+      "taskId","processId"
     ])
   },
   methods:{
@@ -48,9 +49,20 @@ export default {
         this.barcode="";
         return false
       }
+      let id = this.barcode[this.barcode.length-1];
+      if(isNaN(id)){
+        this.$message("条码格式不正确")
+        this.barcode="";
+        return false
+      }
+      console.log(id+0)
+      if((id+0)!=this.processId){
+         this.$message(`条码正处于${id+0}工序`)
+         this.barcode="";
+         return false
+      }
       this.scanBarcode(this.barcode);
       this.barcode="";
-      
     },
     ...mapActions([
       'scanBarcode'
