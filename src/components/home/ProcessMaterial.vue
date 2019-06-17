@@ -86,4 +86,11 @@ export default {
     .info{
         line-height: 2
     }
+    .show-enter-active, .show-leave-active {
+        width: 0;
+        transition: width .5s;
+    }
+    .show-enter, .show-leave-to {
+        width: 200px;
+    }
 </style>
