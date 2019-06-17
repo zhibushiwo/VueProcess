@@ -6,17 +6,21 @@ Vue.use(Vuex)
 const type = {
   SCAN_BARCODE:'SCAN_BARCODE',
   SET_TASK_ID:'SET_TASK_ID',
-  SET_PROCESS_ID:'SET_PROCESS_ID'
+  SET_PROCESS_ID:'SET_PROCESS_ID',
+  SET_FACILITY_STATE:'SET_FACILITY_STATE'
+
 }
 const state ={
   scanHistory:[],
   taskId:0,
-  processId:0
+  processId:0,
+  facilityState:""
 }
 const getters = {
   scanHistory:state=>state.scanHistory.slice(0,5),
   taskId :state=>state.taskId,
-  processId:state=>state.processId
+  processId:state=>state.processId,
+  facilityState:state=>state.facilityState
 }
 const mutations={
   [type.SCAN_BARCODE](state,barcode){
@@ -31,6 +35,10 @@ const mutations={
   [type.SET_PROCESS_ID](state,id){
     localStorage.setItem("processId",id)
     state.processId = id;
+  },
+  [type.SET_FACILITY_STATE](state,fstate){
+    localStorage.setItem("facilityState",fstate)
+    state.facilityState = fstate;
   }
 }
 
@@ -43,6 +51,9 @@ const actions = {
   },
   setProcessID:({commit},processId)=>{
     commit(type.SET_PROCESS_ID,processId)
+  },
+  setFacilityState:({commit},fstate)=>{
+    commit(type.SET_FACILITY_STATE,fstate)
   }
 }
 

@@ -9,9 +9,18 @@
   </div>
 </template>
 <script>
+import {mapActions,mapGetters} from 'vuex'
 export default {
   name: "process-foot",
+  computed:{
+    ...mapGetters([
+      "facilityState"
+    ])
+  },
   methods: {
+    ...mapActions([
+      "setFacilityState"
+    ]),
     backPrint() {
       this.$prompt("请输入条码", "补打印", {
         confirmButtonText: "确定",
@@ -34,6 +43,7 @@ export default {
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
+          this.setFacilityState("REPAIR")
           this.$message({
             type: 'success',
             message: '报修成功!'
@@ -42,8 +52,26 @@ export default {
          
         });
     },
+   
     primary() {
       this.$message("还没想好啥功能");
+    }
+  },
+  created() {
+    let fstate = localStorage.getItem("facilityState");
+    console.log(fstate)
+    if(fstate){
+      this.setFacilityState(fstate)
+      if(fstate=="REPAIR"){
+        this.$message("该设备处于报修状态")
+      }
+    }
+  },
+  watch:{
+    facilityState(val){
+      if(!val){
+        this.$message("已经修好了");
+      }
     }
   }
 };
