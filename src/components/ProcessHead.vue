@@ -16,7 +16,7 @@
         </el-menu>
       </el-col>
       <el-col :span="12" style="text-align:right">
-        <span>admin</span>
+        <span>{{userName}}</span>
       </el-col>
     </el-row>
     <el-dialog title="请选择工序" :visible.sync="dialogVisible" width="30%" :before-close="handleClose">
@@ -24,6 +24,11 @@
         <el-option v-for="item in list" :key="item.id" :label="item.name" :value="item.id"></el-option>
       </el-select>
     </el-dialog>
+
+    <el-dialog title="请扫入人员" :visible="showUser" width="30%" >
+      <el-input style="width:100%"  @keyup.enter.native="setUser" v-model="user"></el-input>
+    </el-dialog>
+
   </div>
 </template>
 <script>
@@ -75,7 +80,8 @@ export default {
           id: 100
         }
       ],
-      selectId: ""
+      selectId: "",
+      user:""
     };
   },
   computed: {
@@ -85,7 +91,10 @@ export default {
           })
           return pro.length>0?pro[0].name:""
       },
-    ...mapGetters(["processId"])
+      showUser(){
+        return this.userName==""
+      },
+    ...mapGetters(["processId","userName"])
   },
   methods: {
     handleClose(done) {
@@ -95,7 +104,13 @@ export default {
         done();
       }
     },
-    ...mapActions(["setProcessID"])
+    setUser(){
+      if(this.user){
+        console.log(this.user)
+        this.setUserName(this.user)
+      }
+    },
+    ...mapActions(["setProcessID","setUserName"])
   },
   created() {
     if (!this.processId || this.processId == 0) {
@@ -104,7 +119,11 @@ export default {
         }else{
             this.dialogVisible = true;
         }
+
     }
+    if(localStorage.getItem("userName")){
+          this.setUserName(localStorage.getItem("userName"))
+     }
   },
   watch: {
     selectId(val) {

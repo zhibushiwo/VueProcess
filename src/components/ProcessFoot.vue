@@ -71,6 +71,7 @@ export default {
     facilityState(val){
       if(!val){
         this.$message("已经修好了");
+        this.setFacilityState("")
       }
     }
   }
