@@ -6,11 +6,14 @@
     </el-input>
     <TaskList :tasks="tasks"></TaskList>
     <TaskTable :dialogVisible.sync="dialogVisible" @handelConfirm="selectTask"></TaskTable>
+    <ProcessQCTest  :showQC.sync="showQC"   @cancel="cancelTest" ></ProcessQCTest>
   </div>
 </template>
 <script>
 import TaskTable from '@/components/home/TaskTable'
 import TaskList from '@/components/home/TaskList'
+import ProcessQCTest from '@/components/home/ProcessQCTest'
+
 import { mapActions,mapGetters } from 'vuex'
 import { isNumber } from 'util';
 
@@ -21,10 +24,11 @@ export default {
       dialogVisible:false,
       tasks:[],
       barcode:"",
+      showQC:false
     }
   },
   components:{
-    TaskTable,TaskList
+    TaskTable,TaskList,ProcessQCTest
   },
   computed:{
     ...mapGetters([
@@ -62,7 +66,11 @@ export default {
          return false
       }
       this.scanBarcode(this.barcode);
+      this.showQC=true
       this.barcode="";
+    },
+    cancelTest(){
+       this.showQC=false
     },
     ...mapActions([
       'scanBarcode'
