@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import getTask from '@/api/getData'
+import {getTask,getFlow} from '@/api/getData'
 
 Vue.use(Vuex)
 
@@ -9,22 +9,24 @@ const type = {
   SET_TASK_ID:'SET_TASK_ID',
   SET_PROCESS_ID:'SET_PROCESS_ID',
   SET_FACILITY_STATE:'SET_FACILITY_STATE',
-  SET_USER_NAME:'SET_USER_NAME'
-
+  SET_USER_NAME:'SET_USER_NAME',
+  SET_FLOW:'SET_FLOW'
 }
 const state ={
   scanHistory:[],
   taskId:0,
   processId:0,
   facilityState:"",
-  userName:""
+  userName:"",
+  flowList:[],
 }
 const getters = {
   scanHistory:state=>state.scanHistory.slice(0,5),
   taskId :state=>state.taskId,
   processId:state=>state.processId,
   facilityState:state=>state.facilityState,
-  userName:state=>state.userName
+  userName:state=>state.userName,
+  flowList:state=>state.flowList
 }
 const mutations={
   [type.SCAN_BARCODE](state,barcode){
@@ -37,8 +39,7 @@ const mutations={
     state.taskId = id;
   },
   [type.SET_PROCESS_ID](state,id){
-    localStorage.setItem("processId",id)
-    
+    localStorage.setItem("processId",id)   
     state.processId = id;
   },
   [type.SET_FACILITY_STATE](state,fstate){
@@ -48,6 +49,9 @@ const mutations={
   [type.SET_USER_NAME](state,name){
     localStorage.setItem("userName",name)
     state.userName = name;
+  },
+  [type.SET_FLOW](state,flow){
+    state.flowList = flow;
   }
 }
 
@@ -67,9 +71,14 @@ const actions = {
   setUserName:({commit},name)=>{
     commit(type.SET_USER_NAME,name)
   },
-  // getTaskList:({commit})=>{
-  //   return getTask()
-  // }
+  getTaskList:({commit})=>{
+    return getTask()
+  },
+  getFlowList:({commit})=>{
+     getFlow().then(r=>{
+      commit(type.SET_FLOW,r.data.list)
+     })
+  }
 }
 
 export default new Vuex.Store({

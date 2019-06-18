@@ -2,14 +2,14 @@
   <div>
     <div id="flowwrap">
       <ul id="flow" :style="{width:width+'px'}">
-        <template v-for="(item,index) in list">
+        <template v-for="(item,index) in flowList">
           <li :class="liClass(item.id)">
             <div>
               <span>{{item.id}}</span>
             </div>
             <div>{{item.name}}</div>
           </li>
-          <li class="arrow" v-if="index<list.length-1">
+          <li class="arrow" v-if="index<flowList.length-1">
             <span style="padding-left:8px">
               <i class="move ar-animated ar-delay-4s iconfont icon-arrow-right"></i>
               <i class="move ar-animated ar-delay-3s iconfont icon-arrow-right"></i>
@@ -24,68 +24,24 @@
   </div>
 </template>
 <script>
+import {mapGetters,mapActions} from 'vuex'
 export default {
   name: "ProcessFlow",
-  data() {
-    return {
-      list: [
-        {
-          name: "第一道工序",
-          id: 10
-        },
-        {
-          name: "第二道工序",
-          id: 20
-        },
-        {
-          name: "第三道工序",
-          id: 30
-        },
-        {
-          name: "第四道工序",
-          id: 40
-        },
-        {
-          name: "第五道工序",
-          id: 50
-        },
-        {
-          name: "第六道工序",
-          id: 60
-        },
-        {
-          name: "第七道工序",
-          id: 70
-        },
-        {
-          name: "第八道工序",
-          id: 80
-        },
-        {
-          name: "第九道工序",
-          id: 90
-        },
-        {
-          name: "第十道工序",
-          id: 100
-        }
-      ]
-    };
-  },
   computed: {
     width() {
-      return this.list.length * 160;
-    }
+      return this.flowList.length * 160;
+    },
+    ...mapGetters(["flowList"])
   },
   methods: {
     liClass(id) {
-      console.log(id,this.$store.state.processId)
       if (this.$store.state.processId == id) {
         return "current";
       } else if (this.$store.state.processId < id) {
         return "next";
       }
-    }
+    },
+    ...mapActions(["getFlowList"])
   },
   mounted() {
     let outDiv = document.getElementById("flowwrap");
@@ -98,6 +54,9 @@ export default {
         this.scrollLeft += step;
       }
     };
+  },
+  created(){
+    this.getFlowList()
   }
 };
 </script>

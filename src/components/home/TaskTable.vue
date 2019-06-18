@@ -20,78 +20,13 @@
 </template>
 <script>
 import {mapActions} from 'vuex'
-import {getTask} from '@/api/getData'
 export default {
   name: "TaskTable",
   props: ["dialogVisible"],
   
   data() {
     return {
-      tableData: [
-        {
-          number: "GS270",
-          name: "钢丝270",
-          model: "301",
-          billno: "SHN5",
-          qty: 299,
-          finish: 89,
-          id:1
-        },
-        {
-          number: "GS270",
-          name: "钢丝270",
-          model: "301",
-          billno: "SH0000165",
-          qty: 199,
-          finish: 99,
-          id:2
-        },
-        {
-          number: "GS270",
-          name: "钢丝270",
-          model: "301",
-          billno: "SH000165",
-          qty: 939,
-          finish: 399,
-          id:3
-        },
-        {
-          number: "GS270",
-          name: "钢丝270",
-          model: "301",
-          billno: "SHN1905210",
-          qty: 10,
-          finish: 8,
-          id:4
-        },
-        {
-          number: "GS270",
-          name: "钢丝270",
-          model: "301",
-          billno: "SH19052165",
-          qty: 99,
-          finish: 12,
-          id:5
-        },
-        {
-          number: "GS270",
-          name: "钢丝270",
-          model: "301",
-          billno: "SHN1900165",
-          qty: 89,
-          finish: 0,
-          id:6
-        },
-        {
-          number: "GS270",
-          name: "钢丝270",
-          model: "301",
-          billno: "SHN19055",
-          qty: 999,
-          finish: 0,
-          id:7
-        }
-      ],
+      tableData: [],
       show: this.dialogVisible,
       selectData:[]
     };
@@ -126,12 +61,10 @@ export default {
     }
   },
   created(){
-    // this.getTaskList().then(r=>{
-    //   console.log(r)
-    // })
-    getTask().then(r=>{
+    this.getTaskList().then(r=>{
       console.log(r)
-    })
+      this.tableData = r.data.tableData
+    })  
   }
 };
 </script>

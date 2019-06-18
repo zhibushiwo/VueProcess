@@ -30,7 +30,7 @@
     </el-row>
     <el-dialog title="请选择工序" :visible.sync="dialogVisible" width="30%" :before-close="handleClose">
       <el-select v-model="selectId" placeholder="请选择工序" style="width:100%">
-        <el-option v-for="item in list" :key="item.id" :label="item.name" :value="item.id"></el-option>
+        <el-option v-for="item in flowList" :key="item.id" :label="item.name" :value="item.id"></el-option>
       </el-select>
     </el-dialog>
 
@@ -47,48 +47,6 @@ export default {
   data() {
     return {
       dialogVisible: false,
-      list: [
-        {
-          name: "第一道工序",
-          id: 10
-        },
-        {
-          name: "第二道工序",
-          id: 20
-        },
-        {
-          name: "第三道工序",
-          id: 30
-        },
-        {
-          name: "第四道工序",
-          id: 40
-        },
-        {
-          name: "第五道工序",
-          id: 50
-        },
-        {
-          name: "第六道工序",
-          id: 60
-        },
-        {
-          name: "第七道工序",
-          id: 70
-        },
-        {
-          name: "第八道工序",
-          id: 80
-        },
-        {
-          name: "第九道工序",
-          id: 90
-        },
-        {
-          name: "第十道工序",
-          id: 100
-        }
-      ],
       selectId: "",
       user:""
     };
@@ -107,7 +65,7 @@ export default {
   },
   computed: {
       processName(){
-          let pro = this.list.filter(item=>{
+          let pro = this.flowList.filter(item=>{
               return item.id==this.processId
           })
           return pro.length>0?pro[0].name:""
@@ -115,7 +73,7 @@ export default {
       showUser(){
         return this.userName==""
       },
-    ...mapGetters(["processId","userName"])
+    ...mapGetters(["processId","userName","flowList"])
   },
   methods: {
     handleClose(done) {
