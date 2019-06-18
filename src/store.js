@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import getTask from '@/api/getData'
 
 Vue.use(Vuex)
 
@@ -65,7 +66,10 @@ const actions = {
   },
   setUserName:({commit},name)=>{
     commit(type.SET_USER_NAME,name)
-  }
+  },
+  // getTaskList:({commit})=>{
+  //   return getTask()
+  // }
 }
 
 export default new Vuex.Store({

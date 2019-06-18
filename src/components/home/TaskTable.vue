@@ -19,6 +19,8 @@
   </div>
 </template>
 <script>
+import {mapActions} from 'vuex'
+import {getTask} from '@/api/getData'
 export default {
   name: "TaskTable",
   props: ["dialogVisible"],
@@ -108,7 +110,8 @@ export default {
         }
         this.show = false;
         this.$emit("handelConfirm", this.selectData);
-    }
+    },
+    ...mapActions(["getTaskList"])
   },
   computed:{
      taskId(){
@@ -121,6 +124,14 @@ export default {
     dialogVisible() {
       this.show = this.dialogVisible;
     }
+  },
+  created(){
+    // this.getTaskList().then(r=>{
+    //   console.log(r)
+    // })
+    getTask().then(r=>{
+      console.log(r)
+    })
   }
 };
 </script>

@@ -39,7 +39,6 @@
   </div>
 </template>
 <script>
-import { setTimeout } from 'timers';
 import {mapActions,mapGetters}  from 'vuex'
 export default {
   name: "TaskList",
