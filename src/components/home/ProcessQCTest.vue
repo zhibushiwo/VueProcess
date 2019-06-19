@@ -48,7 +48,6 @@ export default {
   data() {
     return {
       show: false,
-      radio1:"",
       qcTest: [
         {
           name: "质检一",
@@ -86,7 +85,11 @@ export default {
           done();
         })
         .catch(_ => {});
+    },
+    init(){
+        this.qcTest
     }
+
   }
 };
 </script>
