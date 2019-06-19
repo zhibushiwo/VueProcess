@@ -22,6 +22,8 @@
       </el-col>
     </el-row>
     <ProcessRepair></ProcessRepair>
+    <ProcessIntro></ProcessIntro>
+
   </div>
 </template>
 <script>
@@ -31,6 +33,8 @@ import ProcessChart from "@/components/home/ProcessChart";
 import ProcessInfo from "@/components/home/ProcessInfo";
 import ProcessMaterial from "@/components/home/ProcessMaterial";
 import ProcessRepair from "@/components/home/ProcessRepair";
+import ProcessIntro from "@/components/home/ProcessIntro";
+
 
 export default {
   name: "ProcessMain",
@@ -41,7 +45,8 @@ export default {
     ProcessChart,
     ProcessInfo,
     ProcessMaterial,
-    ProcessRepair
+    ProcessRepair,
+    ProcessIntro
   }
   
 };

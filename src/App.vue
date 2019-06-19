@@ -41,6 +41,9 @@ center, u, b, i {
   background-color: #409EFF;
   color: #fff
 } 
+body .el-dialog__body{
+  padding: 7px 10px
+}
 #app .el-main{
   padding: 10px;
 }

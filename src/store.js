@@ -10,7 +10,8 @@ const type = {
   SET_PROCESS_ID:'SET_PROCESS_ID',
   SET_FACILITY_STATE:'SET_FACILITY_STATE',
   SET_USER_NAME:'SET_USER_NAME',
-  SET_FLOW:'SET_FLOW'
+  SET_FLOW:'SET_FLOW',
+  SET_SHOWINTRO:"SET_SHOWINTRO"
 }
 const state ={
   scanHistory:[],
@@ -19,6 +20,7 @@ const state ={
   facilityState:"",
   userName:"",
   flowList:[],
+  showIntro:false
 }
 const getters = {
   scanHistory:state=>state.scanHistory.slice(0,5),
@@ -26,7 +28,8 @@ const getters = {
   processId:state=>state.processId,
   facilityState:state=>state.facilityState,
   userName:state=>state.userName,
-  flowList:state=>state.flowList
+  flowList:state=>state.flowList,
+  showIntro:state=>state.showIntro
 }
 const mutations={
   [type.SCAN_BARCODE](state,barcode){
@@ -52,6 +55,9 @@ const mutations={
   },
   [type.SET_FLOW](state,flow){
     state.flowList = flow;
+  },
+  [type.SET_SHOWINTRO](state,show){
+    state.showIntro=show
   }
 }
 
@@ -78,6 +84,9 @@ const actions = {
      getFlow().then(r=>{
       commit(type.SET_FLOW,r.data.list)
      })
+  },
+  setShowIntro:({commit},show)=>{
+    commit(type.SET_SHOWINTRO,show)
   }
 }
 

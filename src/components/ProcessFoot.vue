@@ -1,9 +1,9 @@
 <template>
   <div id="footer">
     <el-button @click="backPrint">补打印</el-button>
-    <el-button type="primary" @click="primary">主要按钮</el-button>
+    <el-button type="primary" @click="primary">一个按钮</el-button>
     <el-button type="success">成功按钮</el-button>
-    <el-button type="info">信息按钮</el-button>
+    <el-button type="info" @click="setShowIntro(true)">信息按钮</el-button>
     <el-button type="warning" @click="logout">退出系统</el-button>
     <el-button type="danger" @click="repair">设备报修</el-button>
   </div>
@@ -19,7 +19,7 @@ export default {
   },
   methods: {
     ...mapActions([
-      "setFacilityState","setUserName"
+      "setFacilityState","setUserName","setShowIntro"
     ]),
     backPrint() {
       this.$prompt("请输入条码", "补打印", {

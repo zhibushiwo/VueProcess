@@ -139,6 +139,9 @@ export default {
             }
         let myChart = this.$echarts.init(document.getElementById('chart'))
         myChart.setOption(chartOption)
+        window.onresize = function () {
+            myChart.resize();
+        }
     }
     }
 }
