@@ -62,8 +62,7 @@ export default {
   },
   created(){
     this.getTaskList().then(r=>{
-      console.log(r)
-      this.tableData = r.data.tableData
+      this.tableData = r.tableData
     })  
   }
 };
